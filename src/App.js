@@ -1,13 +1,18 @@
 import React from 'react';
-import logo from './logo.svg';
+import BookList from "./components/BookList";
+import BooksForm from "./components/BooksForm";
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-       <h1>React Bookstore real</h1>
-      </header>
+        <h1>React Bookstore </h1>
+       <div className="App-header">
+        <BooksForm/>
+        <BookList/>
+
+      </div>
+
     </div>
   );
 }
