@@ -1,9 +1,5 @@
-import redux from 'redux'
+import {createStore} from 'redux'
 import initialState from './index'
-const creatStore = redux.createStore();
-
-
-
 const bookReducer = (store = initialState, action) =>{
     switch (action.type) {
         case 'CREATE_BOOK':
@@ -16,8 +12,8 @@ const bookReducer = (store = initialState, action) =>{
     }
 };
 
-const store = creatStore(bookReducer());
+export const store = createStore(bookReducer);
 
-export {
-    store
-}
+store.subscribe(()=>{
+    console.log("description", store.getState())
+});

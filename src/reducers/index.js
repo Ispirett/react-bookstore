@@ -1,8 +1,8 @@
 export  default {
     books:[
-        {id:(Math.random() * 2), title:'SuperMarket',category: 'Horror' },
-        {id:(Math.random() * 2), title:'SuperMarket',category: 'Horror' },
-        {id:(Math.random() * 2), title:'SuperMarket',category: 'Horror' },
+        {id:Math.floor(Math.random() *4), title:'railsman',category: 'Horror' },
+        {id:Math.floor(Math.random() *6), title:'reactman',category: 'Horror' },
+        {id:Math.floor(Math.random() *10), title:'reduxman',category: 'Horror' },
     ]
 };
 
