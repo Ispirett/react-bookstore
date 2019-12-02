@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import {connect} from 'react-redux'
-import {addBook} from  '../actions/index'
+import {addBook} from '../actions'
 
 const mapDispatchToProps = dispatch => {
     return {

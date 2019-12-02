@@ -1,5 +1,5 @@
-import React,{useEffect} from 'react'
-import Book from "./Book";
+import React from 'react'
+import Book from "../components/Book";
 import {connect} from 'react-redux'
 import {deleteBook} from "../actions";
 
