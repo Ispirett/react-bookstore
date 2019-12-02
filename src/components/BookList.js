@@ -1,6 +1,7 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Book from "./Book";
 import {connect} from 'react-redux'
+import {deleteBook} from "../actions";
 
 
 const mapPropsToState = state =>{
@@ -10,19 +11,36 @@ const mapPropsToState = state =>{
     }
 };
 
+const mapDispatchToProps = dispatch =>{
+    return {
+        deleteBook: (value) => dispatch(deleteBook(value))
+    }
+};
+
+
 const listBooks = props =>(
-    props.books.map(book =>(
-        <Book id={book.id} title={book.title} category={book.category}/>
+    props.books.map((book, index) =>(
+        <Book key={index}
+              id={book.id}
+              title={book.title}
+              category={book.category}
+              clickHandler={() => props.deleteBook(book.id)}/>
     ))
-)
-export default connect(mapPropsToState) ((props) => (
+);
+
+export default connect(mapPropsToState, mapDispatchToProps) ((props) => (
     <table className='table table-dark  w-50'>
-        <tr className='text-info'>
+         <thead>
+            <tr className='text-info'>
             <th>ID</th>
             <th>Title</th>
             <th>CATEGORY</th>
-        </tr>
+            </tr>
+        </thead>
+
+        <tbody id={'tbody'}>
         {listBooks(props)}
-    </table>
+        </tbody>
+   </table>
 
 ))

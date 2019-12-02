@@ -1,10 +1,14 @@
 import React from 'react'
 
-export default (book) => (
-    <tr>
-        <td>{book.id}</td>
-        <td>{book.title}</td>
-        <td>{book.category}</td>
-    </tr>
 
-)
+export default (props) => {
+   return( <tr>
+        <td>{props.id}</td>
+        <td>{props.title}</td>
+        <td>{props.category}</td>
+        <td>
+            <button onClick={props.clickHandler}>delete</button>
+        </td>
+    </tr>)
+
+}
