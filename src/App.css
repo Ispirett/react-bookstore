@@ -9,7 +9,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /*background-color: #282c34;*/
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
   list-style: none;
 }
 
-.main-nav{
+.shadow-main{
 box-shadow: 0 4px 30px rgba(211, 211, 211, 0.88);
 }
 
@@ -57,4 +57,20 @@ box-shadow: 0 4px 30px rgba(211, 211, 211, 0.88);
 .book-select{
   width: 25%;
   height: 2.8em;
+}
+
+.font-sm{
+  font-size: .4em;
+}
+.font-sm-5{
+  font-size: .6em;
+}
+.hover{
+  transition: all .2s ease-in;
+}
+
+.hover:hover{
+  background-color: #a8a8a8 !important;
+  color: white !important;
+  cursor: pointer;
 }

@@ -56,6 +56,7 @@ export default connect(mapPropsToState, mapDispatchToProps) ((props) => {
 
     return (
         <div className={'w-90 pt-1'}>
+         <h6 className={'text-secondary text-left'}> FILTER BOOK</h6>
         <CategoryFilter handleFilter={(option) => handleFilter(option, props)}/>
         {displayBooks(props)}
         </div>)

@@ -8,22 +8,30 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(props => {
-  const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
+const options = () => {
+    const optionsArray = [
+        'Category','Programming','Comics','Action',
+        'Biography', 'History','Horror', 'Kids',
+        'Learning', 'Sci-Fi'
+    ];
+    return optionsArray.map((option, index)  => (
+        <option key={index} value={option}>{option}</option>
+    ))
+};
 
-  const handleInput = e => {
-    if (e.target.name === "title") {
-      setTitle(e.target.value);
-      // console.log(title);
-    } else if (e.target.name === "category") {
-      setCategory(e.target.value);
-      /// console.log(category)
-    }
-  };
+export default connect(null,mapDispatchToProps) ((props) => {
+
+    const [title, setTitle] = useState("");
+    const [category, setCategory] = useState('');
+
+    const handleInput = (e) =>{
+        if(e.target.name === "title"){
+            setTitle(e.target.value);
+        }
+        else if(e.target.name === 'category'){
+            setCategory(e.target.value);
+        }
+    };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -42,32 +50,24 @@ export default connect(
           type={"text"}
           name={"title"}
           onChange={e => handleInput(e)}
-          className="form-control book-input"
+          className="form-control book-input shadow-sm"
           placeholder={"Enter book title"}
           style={styles.textInput}
           required={true}
         />
-
         <select
           name={"category"}
           defaultValue={"programming"}
           onChange={e => handleInput(e)}
-          className={"custom-select custom-select-sm mb-3 book-select"}
+          className={"custom-select custom-select-sm mb-3 book-select shadow-sm "}
         >
-          <option value={"Category"}>Choose Category</option>
-          <option value={"Programming"}>Programming</option>
-          <option value={"Comics"}>Comics</option>
-          <option value={"Action"}>Action</option>
-          <option value={"Biography"}>Biography</option>
-          <option value={"History"}>History</option>
-          <option value={"Horror"}>Horror</option>
-          <option value={"Kids"}>Kids</option>
-          <option value={"Learning"}>Learning</option>
-          <option value={"Sci-Fi"}>Sci-Fi</option>
+            {options()}
         </select>
-        <button className={"btn btn-info align-top "} onClick={e => handleSubmit(e)}>
-          add Book
-        </button>
+
+          <button className={"btn btn-info align-top shadow mt-n3"} onClick={e => handleSubmit(e)}>
+                  add Book
+          </button>
+
       </div>
     </form>
   );
