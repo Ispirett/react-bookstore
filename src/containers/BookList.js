@@ -54,21 +54,11 @@ export default connect(mapPropsToState, mapDispatchToProps) ((props) => {
         }
     };
 
-    return (<div>
+    return (
+        <div className={'w-90 pt-1'}>
         <CategoryFilter handleFilter={(option) => handleFilter(option, props)}/>
-        <table className='table table-dark'>
-            <thead>
-            <tr className='text-info'>
-                <th>ID</th>
-                <th>Title</th>
-                <th>CATEGORY</th>
-            </tr>
-            </thead>
-            <tbody id={'tbody'}>
-            {displayBooks(props)}
-            </tbody>
-        </table>
-    </div>)
+        {displayBooks(props)}
+        </div>)
 
 })
 

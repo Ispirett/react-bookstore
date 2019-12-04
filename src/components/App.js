@@ -6,10 +6,23 @@ import '../App.css';
 function App() {
   return (
     <div className="App">
-        <h1>React Bookstore </h1>
+        <nav className={'page-bg d-flex align-items-center justify-content-between pl-5 main-nav mb-4 border-bottom'}>
+            <ul className={'ul'}>
+                <l1><h1>React Bookstore</h1></l1>
+                <li>BOOKS</li>
+                <li>GATEGORIES</li>
+            </ul>
+
+            <div className={'pr-5'}>
+                <span className={'text-info'}>
+                    <i className={'fa fa-lock'}> hello</i>
+                </span>
+            </div>
+        </nav>
+
        <div className="App-header">
-        <BooksForm/>
         <BookList/>
+       <BooksForm/>
       </div>
     </div>
   );
