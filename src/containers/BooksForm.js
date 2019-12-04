@@ -8,6 +8,17 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
+const options = () => {
+    const optionsArray = [
+        'Category','Programming','Comics','Action',
+        'Biography', 'History','Horror', 'Kids',
+        'Learning', 'Sci-Fi'
+    ];
+    return optionsArray.map(option  => (
+        <option value={option}>{option}</option>
+    ))
+};
+
 export default connect(null,mapDispatchToProps) ((props) => {
 
     const [title, setTitle] = useState("");
@@ -16,11 +27,9 @@ export default connect(null,mapDispatchToProps) ((props) => {
     const handleInput = (e) =>{
         if(e.target.name === "title"){
             setTitle(e.target.value);
-           // console.log(title);
         }
         else if(e.target.name === 'category'){
             setCategory(e.target.value);
-           /// console.log(category)
         }
     };
 
@@ -50,16 +59,7 @@ export default connect(null,mapDispatchToProps) ((props) => {
                 defaultValue={'programming'}
                 onChange={(e) => handleInput(e)}
                 className={"custom-select custom-select-sm mb-3"}>
-            <option  value={'Category'}>Choose Category</option>
-            <option  value={'Programming'}>Programming</option>
-            <option value={'Comics'}>Comics</option>
-            <option value={'Action'}>Action</option>
-            <option value={"Biography"}>Biography</option>
-            <option value={"History"}>History</option>
-            <option value={"Horror"}>Horror</option>
-            <option value={"Kids"}>Kids</option>
-            <option value={"Learning"}>Learning</option>
-            <option value={"Sci-Fi"}>Sci-Fi</option>
+        {options()}
         </select>
         <button className={'btn btn-info'} onClick={(e) => handleSubmit(e)}> add Book </button>
     </form>)
