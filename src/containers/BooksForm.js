@@ -29,12 +29,13 @@ export default connect(null,mapDispatchToProps) ((props) => {
         props.addBook(
             {id: Math.floor(Math.random() * 6),
                 title,
-                category
-                  })
+                category: category === ''? 'Programming': category
+      })
     };
 
 
     return( <form acceptCharset={'UTF-8'} style={styles.form}>
+        <h1> Add new book</h1>
         <input
             type={'text'}
             name={'title'}
@@ -45,9 +46,13 @@ export default connect(null,mapDispatchToProps) ((props) => {
             required={true}
         />
 
-        <select name={"category"} onChange={(e) => handleInput(e)} className={"custom-select custom-select-sm"}>
-            <option  value={'Programming'}>programming</option>
-            <option value={'Comics'}>comics</option>
+        <select name={"category"}
+                defaultValue={'programming'}
+                onChange={(e) => handleInput(e)}
+                className={"custom-select custom-select-sm mb-3"}>
+            <option  value={'Category'}>Choose Category</option>
+            <option  value={'Programming'}>Programming</option>
+            <option value={'Comics'}>Comics</option>
             <option value={'Action'}>Action</option>
             <option value={"Biography"}>Biography</option>
             <option value={"History"}>History</option>
@@ -56,7 +61,7 @@ export default connect(null,mapDispatchToProps) ((props) => {
             <option value={"Learning"}>Learning</option>
             <option value={"Sci-Fi"}>Sci-Fi</option>
         </select>
-        <button onClick={(e) => handleSubmit(e)}> add Book </button>
+        <button className={'btn btn-info'} onClick={(e) => handleSubmit(e)}> add Book </button>
     </form>)
 })
 

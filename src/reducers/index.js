@@ -1,9 +1,11 @@
-export  default {
-    books:[
-        {id:Math.floor(Math.random() *4), title:'railsman',category: 'Horror' },
-        {id:Math.floor(Math.random() *6), title:'reactman',category: 'Horror' },
-        {id:Math.floor(Math.random() *10), title:'reduxman',category: 'Horror' },
-    ]
-};
+import {createStore, combineReducers} from "redux";
+import {bookReducer} from "./book";
+import {filterReducer} from "./filter";
+
+const rootReducer =  combineReducers({bookReducer,filterReducer});
+export const store = createStore(rootReducer);
 
 
+store.subscribe(()=>{
+    console.log("description", store.getState())
+});

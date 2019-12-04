@@ -7,7 +7,8 @@ export default (props) => {
         <td>{props.title}</td>
         <td>{props.category}</td>
         <td>
-            <button onClick={props.clickHandler}>delete</button>
+            <button className={'btn btn-danger'}
+                    onClick={props.clickHandler}>delete</button>
         </td>
     </tr>)
 
