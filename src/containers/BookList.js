@@ -1,25 +1,35 @@
-import React from 'react'
+import React,{useState} from 'react'
 import Book from "../components/Book";
 import {connect} from 'react-redux'
-import {deleteBook} from "../actions";
+import {deleteBook, filterBook} from "../actions";
+
+import CategoryFilter from "../components/CategoryFilter";
 
 
 const mapPropsToState = state =>{
-    const {books} = state;
+    console.log(state);
+    const {books} = state.bookReducer;
     return{
-        books
+        books,
+        option: state.filterReducer.filter
     }
 };
 
 const mapDispatchToProps = dispatch =>{
     return {
-        deleteBook: (value) => dispatch(deleteBook(value))
+        deleteBook: (value) => dispatch(deleteBook(value)),
+        filterBook: (value) => dispatch(filterBook(value))
     }
 };
 
 
-const listBooks = props =>(
-    props.books.map((book, index) =>(
+const filterBooks = (props) => {
+    let filter = props.books.filter(book => book.category === props.option);
+    return  listBooks(filter,props)
+};
+
+const listBooks = (books,props) => (
+     books.map((book, index) => (
         <Book key={index}
               id={book.id}
               title={book.title}
@@ -28,19 +38,39 @@ const listBooks = props =>(
     ))
 );
 
-export default connect(mapPropsToState, mapDispatchToProps) ((props) => (
-    <table className='table table-dark  w-50'>
-         <thead>
+
+export default connect(mapPropsToState, mapDispatchToProps) ((props) => {
+    const [option, setOption] = useState('All');
+    const handleFilter = (option,props) => {
+        setOption(option);
+        props.filterBook(option)
+    };
+    const displayBooks = (props) =>{
+        if (option === 'All') {
+            return listBooks(props.books,props)
+        }
+        else{
+            return filterBooks(props)
+        }
+    };
+
+    return (<div>
+        <CategoryFilter handleFilter={(option) => handleFilter(option, props)}/>
+        <table className='table table-dark'>
+            <thead>
             <tr className='text-info'>
-            <th>ID</th>
-            <th>Title</th>
-            <th>CATEGORY</th>
+                <th>ID</th>
+                <th>Title</th>
+                <th>CATEGORY</th>
             </tr>
-        </thead>
+            </thead>
+            <tbody id={'tbody'}>
+            {displayBooks(props)}
+            </tbody>
+        </table>
+    </div>)
 
-        <tbody id={'tbody'}>
-        {listBooks(props)}
-        </tbody>
-   </table>
+})
 
-))
+
+

@@ -8,6 +8,17 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
+const options = () => {
+    const optionsArray = [
+        'Category','Programming','Comics','Action',
+        'Biography', 'History','Horror', 'Kids',
+        'Learning', 'Sci-Fi'
+    ];
+    return optionsArray.map(option  => (
+        <option value={option}>{option}</option>
+    ))
+};
+
 export default connect(null,mapDispatchToProps) ((props) => {
 
     const [title, setTitle] = useState("");
@@ -16,11 +27,9 @@ export default connect(null,mapDispatchToProps) ((props) => {
     const handleInput = (e) =>{
         if(e.target.name === "title"){
             setTitle(e.target.value);
-           // console.log(title);
         }
         else if(e.target.name === 'category'){
             setCategory(e.target.value);
-           /// console.log(category)
         }
     };
 
@@ -29,12 +38,13 @@ export default connect(null,mapDispatchToProps) ((props) => {
         props.addBook(
             {id: Math.floor(Math.random() * 6),
                 title,
-                category
-                  })
+                category: category === ''? 'Programming': category
+      })
     };
 
 
     return( <form acceptCharset={'UTF-8'} style={styles.form}>
+        <h1> Add new book</h1>
         <input
             type={'text'}
             name={'title'}
@@ -45,18 +55,13 @@ export default connect(null,mapDispatchToProps) ((props) => {
             required={true}
         />
 
-        <select name={"category"} onChange={(e) => handleInput(e)} className={"custom-select custom-select-sm"}>
-            <option  value={'Programming'}>programming</option>
-            <option value={'Comics'}>comics</option>
-            <option value={'Action'}>Action</option>
-            <option value={"Biography"}>Biography</option>
-            <option value={"History"}>History</option>
-            <option value={"Horror"}>Horror</option>
-            <option value={"Kids"}>Kids</option>
-            <option value={"Learning"}>Learning</option>
-            <option value={"Sci-Fi"}>Sci-Fi</option>
+        <select name={"category"}
+                defaultValue={'programming'}
+                onChange={(e) => handleInput(e)}
+                className={"custom-select custom-select-sm mb-3"}>
+        {options()}
         </select>
-        <button onClick={(e) => handleSubmit(e)}> add Book </button>
+        <button className={'btn btn-info'} onClick={(e) => handleSubmit(e)}> add Book </button>
     </form>)
 })
 
