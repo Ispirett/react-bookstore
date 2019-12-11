@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .App-logo {
@@ -7,7 +9,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  /*background-color: #282c34;*/
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,4 +21,56 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.panel-bg {
+  width: 1400px;
+  height: 95px;
+  background-color: #ffffff;
+}
+
+.ul{
+  padding-top: .5em;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.shadow-main{
+box-shadow: 0 4px 30px rgba(211, 211, 211, 0.88);
+}
+
+.book-detail{
+  border-bottom: 1px solid #09d3ac;
+}
+
+.w-90{
+  width: 90%;
+}
+
+.book-input{
+  width: 60%;
+}
+.book-select{
+  width: 25%;
+  height: 2.8em;
+}
+
+.font-sm{
+  font-size: .4em;
+}
+.font-sm-5{
+  font-size: .6em;
+}
+.hover{
+  transition: all .2s ease-in;
+}
+
+.hover:hover{
+  background-color: #a8a8a8 !important;
+  color: white !important;
+  cursor: pointer;
 }

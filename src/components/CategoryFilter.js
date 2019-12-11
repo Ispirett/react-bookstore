@@ -10,8 +10,8 @@ const options = () =>{
             'Biography', 'History','Horror', 'Kids',
             'Learning', 'Sci-Fi'
         ];
-      return optionsArray.map(option  => (
-          <option value={option}>{option}</option>
+      return optionsArray.map((option, index)  => (
+          <option key={index} value={option}>{option}</option>
       ))
 };
 
@@ -19,7 +19,7 @@ export default (props) => (
     <select name={"category"}
             defaultValue={'All'}
             onChange={(e) => handleChange(e,props)}
-            className={"custom-select custom-select-sm  mb-5"}>
+            className={"custom-select custom-select-sm  mb-5 shadow-sm"}>
             {options()}
     </select>
 )
