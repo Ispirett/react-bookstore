@@ -1,12 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { addBook } from "../actions";
+import defaults from "../utils/defaults";
 
 const mapDispatchToProps = dispatch => {
   return {
     addBook: value => dispatch(addBook(value))
   };
 };
+
+const apiBooks = async () => {
+    try {
+        const response =  fetch(defaults.apiBooks.all)
+
+        return (await response).json()
+    }
+    catch (e) {
+        return  e
+    }
+}
+
+const apiCreateBook = async (book) =>{
+    try{
+        const response = fetch(defaults.apiBooks.create,{
+            method: 'POST',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify(book)
+        });
+
+        return (await response).json()
+
+    }
+    catch (e) {
+        return e
+    }
+}
+
 
 const options = () => {
     const optionsArray = [
@@ -20,6 +49,14 @@ const options = () => {
 };
 
 export default connect(null,mapDispatchToProps) ((props) => {
+    useEffect(()=>{
+        apiBooks().then(books =>{
+            books.forEach(book =>{
+                props.addBook(book)
+            })
+        })
+
+    },[]);
 
     const [title, setTitle] = useState("");
     const [category, setCategory] = useState('');
@@ -35,11 +72,17 @@ export default connect(null,mapDispatchToProps) ((props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    props.addBook({
-      id: Math.floor(Math.random() * 6),
-      title,
-      category: category === "" ? "Programming" : category
-    });
+      apiCreateBook({ title,
+             category: category === "" ? "Programming" : category}).then(response =>{
+                 console.log(response)
+      });
+
+          apiBooks().then(books =>{
+              books.forEach(book =>{
+                  props.addBook(book)
+              })
+          })
+
   };
 
   return (

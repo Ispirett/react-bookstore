@@ -6,6 +6,6 @@ const rootReducer =  combineReducers({bookReducer,filterReducer});
 export const store = createStore(rootReducer);
 
 
-store.subscribe(()=>{
-    console.log("description", store.getState())
-});
+// store.subscribe(()=>{
+//     console.log("description", store.getState())
+// });
