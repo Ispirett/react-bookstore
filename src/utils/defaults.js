@@ -5,5 +5,6 @@ export default {
             return `http://api-bookstore-tt.herokuapp.com/api/v1/books/${id}`
         },
         create: 'https://api-bookstore-tt.herokuapp.com/api/v1/books'
-    }
+    },
+    token: ''
 }

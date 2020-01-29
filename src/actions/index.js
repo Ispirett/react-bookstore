@@ -11,3 +11,7 @@ export const deleteBook = (index) =>(
 export const filterBook  = (category) =>(
     {type: actions.FILTER_BOOK, category}
 );
+
+export const authenticate = (token) =>(
+    {type:actions.AUTHENTICATE, token}
+);

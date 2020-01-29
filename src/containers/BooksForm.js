@@ -8,81 +8,100 @@ const mapDispatchToProps = dispatch => {
     addBook: value => dispatch(addBook(value))
   };
 };
-
-const apiBooks = async () => {
-    try {
-        const response =  fetch(defaults.apiBooks.all)
-
-        return (await response).json()
-    }
-    catch (e) {
-        return  e
-    }
-}
-
-const apiCreateBook = async (book) =>{
-    try{
-        const response = fetch(defaults.apiBooks.create,{
-            method: 'POST',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify(book)
-        });
-
-        return (await response).json()
-
-    }
-    catch (e) {
-        return e
-    }
-}
-
-
-const options = () => {
-    const optionsArray = [
-        'Category','Programming','Comics','Action',
-        'Biography', 'History','Horror', 'Kids',
-        'Learning', 'Sci-Fi'
-    ];
-    return optionsArray.map((option, index)  => (
-        <option key={index} value={option}>{option}</option>
-    ))
+const mapStateToProps = state => {
+  const { token } = state.bookReducer;
+  return {
+    token
+  };
 };
 
-export default connect(null,mapDispatchToProps) ((props) => {
-    useEffect(()=>{
-        apiBooks().then(books =>{
-            books.forEach(book =>{
-                props.addBook(book)
-            })
-        })
-
-    },[]);
-
-    const [title, setTitle] = useState("");
-    const [category, setCategory] = useState('');
-
-    const handleInput = (e) =>{
-        if(e.target.name === "title"){
-            setTitle(e.target.value);
+const apiBooks = async (token) => {
+  try {
+    const response = fetch(defaults.apiBooks.all, {
+        method:'GET',
+        headers:{
+          "Content-Type": "application/json",
+          "AuthToken": token
         }
-        else if(e.target.name === 'category'){
-            setCategory(e.target.value);
-        }
-    };
+    });
+
+    return (await response).json();
+  } catch (e) {
+    return e;
+  }
+};
+
+const apiCreateBook = async book => {
+  try {
+    const response = fetch(defaults.apiBooks.create, {
+      method: "POST",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify(book)
+    });
+
+    return (await response).json();
+  } catch (e) {
+    return e;
+  }
+};
+
+const options = () => {
+  const optionsArray = [
+    "Category",
+    "Programming",
+    "Comics",
+    "Action",
+    "Biography",
+    "History",
+    "Horror",
+    "Kids",
+    "Learning",
+    "Sci-Fi"
+  ];
+  return optionsArray.map((option, index) => (
+    <option key={index} value={option}>
+      {option}
+    </option>
+  ));
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(props => {
+  useEffect(() => {
+    apiBooks(props.token).then(books => {
+      books.forEach(book => {
+        props.addBook(book);
+      });
+    });
+  }, []);
+
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+
+  const handleInput = e => {
+    if (e.target.name === "title") {
+      setTitle(e.target.value);
+    } else if (e.target.name === "category") {
+      setCategory(e.target.value);
+    }
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
-      apiCreateBook({ title,
-             category: category === "" ? "Programming" : category}).then(response =>{
-                 console.log(response)
+    apiCreateBook({
+      title,
+      category: category === "" ? "Programming" : category
+    }).then(response => {
+      console.log(response);
+    });
+
+    apiBooks().then(books => {
+      books.forEach(book => {
+        props.addBook(book);
       });
-
-          apiBooks().then(books =>{
-              books.forEach(book =>{
-                  props.addBook(book)
-              })
-          })
-
+    });
   };
 
   return (
@@ -102,15 +121,19 @@ export default connect(null,mapDispatchToProps) ((props) => {
           name={"category"}
           defaultValue={"programming"}
           onChange={e => handleInput(e)}
-          className={"custom-select custom-select-sm mb-3 book-select shadow-sm "}
+          className={
+            "custom-select custom-select-sm mb-3 book-select shadow-sm "
+          }
         >
-            {options()}
+          {options()}
         </select>
 
-          <button className={"btn btn-info align-top shadow mt-n3"} onClick={e => handleSubmit(e)}>
-                  add Book
-          </button>
-
+        <button
+          className={"btn btn-info align-top shadow mt-n3"}
+          onClick={e => handleSubmit(e)}
+        >
+          add Book
+        </button>
       </div>
     </form>
   );

@@ -4,13 +4,16 @@ import {connect} from 'react-redux'
 import {deleteBook, filterBook} from "../actions";
 import defaults from "../utils/defaults";
 import CategoryFilter from "../components/CategoryFilter";
+import BooksForm from "./BooksForm";
+import UserSignInForm from "../components/UserSignInForm";
 
 
 const mapPropsToState = state =>{
     //console.log(state);
-    const {books} = state.bookReducer;
+    const {books,token} = state.bookReducer;
     return{
         books,
+        token,
         option: state.filterReducer.filter
     }
 };
@@ -73,14 +76,19 @@ export default connect(mapPropsToState, mapDispatchToProps) ((props) => {
             return filterBooks(props)
         }
     };
+    if(1 === 2){
 
-    return (
-        <div className={'w-90 pt-1'}>
-         <h6 className={'text-secondary text-left'}> FILTER BOOK</h6>
-        <CategoryFilter handleFilter={(option) => handleFilter(option, props)}/>
-        {displayBooks(props)}
-        </div>)
-
+    }
+        else{
+            return (
+                <div className={'w-90 pt-1'}>
+                    <h6 className={'text-secondary text-left'}> FILTER BOOK</h6>
+                    <CategoryFilter handleFilter={(option) => handleFilter(option, props)}/>
+                    {displayBooks(props)}
+                    <BooksForm/>
+                </div>
+            )
+        }
 })
 
 
